@@ -95,7 +95,15 @@ if source_radio == settings.IMAGE:
                     st.write("No image is uploaded yet!")
 
 elif source_radio == settings.VIDEO:
-    helper.play_stored_video(confidence, model)
+    source_vid = st.sidebar.file_uploader(
+    "Choose video...", type=("mp4", "avi", "wmv", 'mkv', 'm4v'))
+
+    if source_vid is not None:
+        # To read file as bytes:
+        bytes_data = source_vid.getvalue()
+        st.write(bytes_data)
+
+    helper.play_stored_video(confidence, model,source_vid)
 
 elif source_radio == settings.WEBCAM:
     helper.play_webcam(confidence, model)

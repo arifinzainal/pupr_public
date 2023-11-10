@@ -105,7 +105,16 @@ def display_reports():
         st.metric(label="Pothole", value=total_pothole)
     except Exception as e:
         st.write(e)
-    
+
+def clean_reports():
+    try:
+        filename = "result.csv"
+        # opening the file with w+ mode truncates the file
+        f = open(filename, "w+")
+        f.close()
+    except Exception as e:
+        print(e)
+
 def play_youtube_video(conf, model):
     """
     Plays a webcam stream. Detects Objects in real-time using the YOLOv8 object detection model.
@@ -125,6 +134,7 @@ def play_youtube_video(conf, model):
 
     if st.sidebar.button('Detect Objects'):        
         try:
+            clean_reports()
             yt = YouTube(source_youtube)
             stream = yt.streams.filter(file_extension="mp4", res=720).first()
             vid_cap = cv2.VideoCapture(stream.url)
@@ -169,6 +179,7 @@ def play_rtsp_stream(conf, model):
     #is_display_tracker, tracker = display_tracker_options()
     if st.sidebar.button('Detect Objects'):
         try:
+            clean_reports()
             vid_cap = cv2.VideoCapture(source_rtsp)
             st_frame = st.empty()
             while (vid_cap.isOpened()):
@@ -208,9 +219,10 @@ def play_webcam(conf, model):
         None
     """
     source_webcam = settings.WEBCAM_PATH
-    is_display_tracker, tracker = display_tracker_options()
+    #is_display_tracker, tracker = display_tracker_options()
     if st.sidebar.button('Detect Objects'):
         try:
+            clean_reports()
             vid_cap = cv2.VideoCapture(source_webcam)
             st_frame = st.empty()
             while (vid_cap.isOpened()):
@@ -231,7 +243,7 @@ def play_webcam(conf, model):
     if st.sidebar.button('Display Reports'):
         display_reports()
 
-def play_stored_video(conf, model):
+def play_stored_video(conf, model, source_vid):
     """
     Plays a stored video file. Tracks and detects objects in real-time using the YOLOv8 object detection model.
 
@@ -245,18 +257,19 @@ def play_stored_video(conf, model):
     Raises:
         None
     """
-    source_vid = st.sidebar.selectbox(
-        "Choose a video...", settings.VIDEOS_DICT.keys())
+    #source_vid = st.sidebar.selectbox(
+    #    "Choose a video...", settings.VIDEOS_DICT.keys())
 
     #is_display_tracker, tracker = display_tracker_options()
 
-    with open(settings.VIDEOS_DICT.get(source_vid), 'rb') as video_file:
-        video_bytes = video_file.read()
-    if video_bytes:
-        st.video(video_bytes)
+    #with open(settings.VIDEOS_DICT.get(source_vid), 'rb') as video_file:
+    #    video_bytes = video_file.read()
+    #if video_bytes:
+    #    st.video(video_bytes)
 
     if st.sidebar.button('Detect Video Objects'):
         try:
+            clean_reports()
             vid_cap = cv2.VideoCapture(
                 str(settings.VIDEOS_DICT.get(source_vid)))
             st_frame = st.empty()

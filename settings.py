@@ -21,7 +21,7 @@ WEBCAM = 'Webcam'
 RTSP = 'RTSP'
 YOUTUBE = 'YouTube'
 
-SOURCES_LIST = [IMAGE, VIDEO, WEBCAM, RTSP, YOUTUBE]
+SOURCES_LIST = [VIDEO, WEBCAM, RTSP, YOUTUBE]
 
 # Images config
 IMAGES_DIR = ROOT / 'images'
@@ -35,9 +35,9 @@ VIDEO_2_PATH = VIDEO_DIR / 'limbangan_arah_normal.mp4'
 VIDEO_3_PATH = VIDEO_DIR / 'video_3.mp4'
 RESULT_CSV = ROOT/ 'result.csv'
 VIDEOS_DICT = {
-    'video_1': VIDEO_1_PATH,
-    'video_2': VIDEO_2_PATH,
-    'video_3': VIDEO_3_PATH,
+    #'video_1': VIDEO_1_PATH,
+    #'video_2': VIDEO_2_PATH,
+    #'video_3': VIDEO_3_PATH,
 }
 
 # ML Model config
